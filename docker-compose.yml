@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.d/Dockerfile.php
+    volumes:
+      - ./www.d:/var/www/html
+      - ./data.d:/var/www/html/data
+      - ./data.d/yc:/var/www/html/yc/data
+      - ./tls.d:/mnt/tls
+    ports:
+      - 9000:9000
+
+  www:
+    image: nginx:1.21.5
+    volumes:
+      - ./www.d:/var/www/html
+      - ./data.d:/var/www/html/data
+      - ./data.d/yc:/var/www/html/yc/data
+      - ./conf.d/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./tls.d:/mnt/tls
+    ports:
+      - 80:80
+      - 443:443
+
+  mysql:
+    image: mysql:8.0.27
+    environment:
+      MYSQL_ROOT_PASSWORD: plz_replace_rootpasswd_here
+      MYSQL_DATABASE: yc
+      MYSQL_USER: yc
+      MYSQL_PASSWORD: yc
+    volumes:
+      - ./sql.d:/mnt/sql.d
+

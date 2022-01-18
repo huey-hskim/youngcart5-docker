@@ -1,0 +1,3 @@
+[submodule "www.d/yc"]
+	path = www.d/yc
+	url = https://github.com/gnuboard/youngcart5.git
