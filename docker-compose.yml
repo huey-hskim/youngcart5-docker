@@ -34,4 +34,8 @@ services:
       MYSQL_PASSWORD: yc
     volumes:
       - ./sql.d:/mnt/sql.d
+      - ./mysql_data.d:/var/lib/mysql
+      #- mysql_volume:/var/lib/mysql
 
+#volumes:
+#  mysql_volume:
